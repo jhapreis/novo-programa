@@ -1,0 +1,215 @@
+-----------------------------------------------
+|Python Virtual Environment (venv) on Windows |
+-----------------------------------------------
+
+OBJECTIVE: Install dependences and packages only for a single project on a specific folder, 
+without installing that on the global Python that runs on the computer.
+
+REQUIRED: Python X.Y >= Python 3.3
+
+TIP: I highly recommend to install the 'sublime' text editor. It's not necessary, but I've discovered that and it's a very nice text editor and all.
+
+
+1) Create a virtual environment:
+OBS: If you are using Anaconda, as I am, you must go to the Anaconda Prompt instead of the simple Command Prompt (I don't know why, but the simple command prompt doesn't run the Python -- it's not like Ubuntu)
+
+
+It all comes with the standard library.
+
+	1.1. List the installed packages:
+	(base) C:\Users\JJ>pip list 
+
+
+	1.2. Create a new environment:
+	(base) C:\Users\JJ>python -m venv project_env  (where 'project_env' stands for the name of our virtual environment)
+
+
+		1.2.1. Check the created environment:
+		(base) C:\Users\JJ>dir  (which will show you a NEW FOLDER with the name of the environment and a few other folders on it)
+
+
+	1.3. Run the new environment:
+	(base) C:\Users\JJ>project_env\Scripts\activate.bat  (OBS: that archive already exists and it was created with the environment)
+		
+
+		1.3.1. If the previous command was correctly executed, you gonna see a '(project_env)' on the left of your path, as follows:
+		(project_env) (base) C:\Users\JJ>
+
+	
+		1.3.2. If you list the installed packages, you gonna see that, on the environment, you only have a few installed.
+		(project_env) (base) C:\Users\JJ>pip list                                           
+		 Package    Version                                                                                                  
+		 ---------- -------                                                                                                   
+		pip          19.2.3                                                                                                    
+		setuptools 41.2.0    
+
+
+	 1.4. If you install a package here, it'll ONLY BE INSTALLED on the environment.
+		
+
+		1.4.1. For instance, if you want to install the "request" and "pytz" libraries. With the following commands, they'll be installed.
+		(project_env) (base) C:\Users\JJ>pip install request 
+		(project_env) (base) C:\Users\JJ>pip install pytz
+
+		OBS: remember that "cls" cleans the prompt screen.
+
+
+		1.4.2. If you list the packages again, you'll see the results.
+		(project_env) (base) C:\Users\JJ>pip list
+        Package      Version
+        ------------ ---------                                                                                               
+		get          2019.4.13                                                                                               
+		pip          19.2.3                                                                                                  
+		post         2019.4.13                                                                                               
+		public       2019.4.13                                                                                               
+		pytz         2019.3                                                                                                  
+		query-string 2019.4.13                                                                                               
+		request      2019.4.13                                                                                               
+		setuptools   41.2.0   
+		
+		(those are just dependencies of the packages we already installed)
+
+
+	1.5. If you want to EXPORT the packages that you are using on an environment, you can do this by running the following command and copying the results to a 'txt' file.
+This will allow someone else to create an environment and use the same packages/dependencies that you are using, which'll be listed on the txt file.
+	(project_env) (base) C:\Users\JJ>pip freeze
+	get==2019.4.13
+	post==2019.4.13
+	public==2019.4.13
+	pytz==2019.3
+	query-string==2019.4.13
+	request==2019.4.13
+
+
+	1.6. Deactivate a virtual environment:
+	(project_env) (base) C:\Users\JJ>deactivate
+	(base) C:\Users\JJ>
+
+
+	1.7. DELETE an environment (deleting the folder of the environment):
+	(base) C:\Users\JJ>rmdir project_env /s
+	project_env, Tem certeza (S/N)? s
+
+	Where the '/s' says that you will delete all the sub-directories too.
+
+	OBS: You could do that just by moving the folder to the trash bin and deleting it, manually.
+
+
+
+
+2) Create an environment with the standards conventions (good habits to have):
+	
+	2.1. Create a directory with the name of your project:
+	(base) C:\Users\JJ>mkdir my_project
+
+
+	2.2. Then, INSIDE OF THAT FOLDER, you create your environment  (the most used name to the folder is 'venv'  -- "virtual environment" --, which must not be confused with the 'venv' command).
+	(base) C:\Users\JJ>python -m venv my_project\venv
+
+	OBS: it normally takes a few seconds to create the environment.
+
+
+	2.3. Activate the environment:
+	(base) C:\Users\JJ>my_project\venv\Scripts\activate.bat
+
+
+	2.4. If we want to use the previous txt that we created on (1.5), we can use the following command and install all the listed dependencies:
+	(venv) (base) C:\Users\JJ>pip install -r requirements.txt
+
+	OBS_1: '-r' means that you will insert a requirement file, which means you must give the path to the file (in that case, the file already is on the same path we are using).
+
+	OBS_2: The file was named 'requirements.txt'.
+
+
+		2.4.1. If you run 'pip list' again, you'll see the installed packages on the environment.
+		(venv) (base) C:\Users\JJ>pip list
+		Package      Version
+		------------ ---------
+		get          2019.4.13
+		pip          19.2.3
+		post         2019.4.13
+		public       2019.4.13
+		pytz         2019.3
+		query-string 2019.4.13
+		request      2019.4.13
+		setuptools   41.2.0
+
+
+	2.5. It's common to put you venv on your project folder, but YOU DON'T WANNA PUT ANY OTHER PROJECT FILES ON YOUR VENV DIRECTORY.  
+
+
+		2.5.1. For instance: with a simple script (it may be empty) named 'script.py', created on the root of the 'my_project' path.
+		(venv) (base) C:\Users\JJ>cd my_project
+
+		(venv) (base) C:\Users\JJ\my_project>dir
+		 O volume na unidade C é Windows
+		 O Número de Série do Volume é 3ADA-F132
+
+		 Pasta de C:\Users\JJ\my_project
+
+		10/04/2020  17:21    <DIR>          .
+		10/04/2020  17:21    <DIR>          ..
+		10/04/2020  17:20                 0 script.py
+		10/04/2020  16:29    <DIR>          venv
+		               1 arquivo(s)              0 bytes
+		               3 pasta(s)   23.905.300.480 bytes disponíveis
+
+
+		2.5.2. The 'venv' is a folder that sometimes you need to throw away, delete or rebuild without worring about any losses of scripts and things like that.
+
+
+	2.6. You SHOULD NOT COMMIT YOUR VENV TO SOURCE CONTROL. 
+
+
+		2.6.1. Deactivate your venv.
+		(venv) (base) C:\Users\JJ\my_project>deactivate
+		(base) C:\Users\JJ\my_project>
+
+
+		2.6.2. Now, if you run 'pip list' outside the environment, you gonna see all the packages that are installed on your global Python. For instance:
+		(base) C:\Users\JJ\my_project>pip list
+		Package                            Version
+		---------------------------------- -------------------
+		alabaster                          0.7.12
+		anaconda-client                    1.7.2
+		anaconda-navigator                 1.9.12
+		anaconda-project                   0.8.3
+		argh                               0.26.2
+		asn1crypto                         1.3.0
+		astroid                            2.3.3
+		(...)							   (...)
+		yapf                               0.28.0
+		zict                               1.0.0
+		zipp                               2.2.0
+
+		OBS_1: (...) omits a part of the packages. I have many of them, cause I'm using Anaconda.
+
+		OBS_2: To keep on the tutorial, I'll delete the previous venv we created.
+
+		
+		2.6.3. To create an NEW environment with access to the system packages and activate it:
+		(base) C:\Users\JJ\my_project>python -m venv venv --system-site-packages
+
+		(base) C:\Users\JJ\my_project>venv\Scripts\activate.bat
+
+		(venv) (base) C:\Users\JJ\my_project>
+
+		OBS: If you 'pip list' now, you gonna see that all of the global installed packages are now on the venv.
+
+
+	2.7. Now, we can install on the venv an additional package that WILL NOT AFFECT THE SYSTEM'S PACKAGES. For instance, we'll install the package named 'SQLAlchemy'.
+
+		2.7.1. Install the package:
+		(venv) (base) C:\Users\JJ\my_project>pip install SQLAlchemy
+
+
+		2.7.2. If you list the packages with 'pip list', you gonna see all the packages you have installed + the packages you installed on your virtual environment (which only exists there, in contrast with the other packages, that are shared with the global Python).
+
+
+		2.7.3. If you want, you can list ONLY THE PACKAGES THAT ARE INSTALLED ON THE ENVIRONMENT with the command
+		(venv) (base) C:\Users\JJ\my_project>pip list --local
+
+
+		2.7.4. If you deactivate the venv (by running 'deactivate') and list the packages you have installed (by running 'pip list'), you gonna see that the packages you installed on the venv are not being showed, proving that you only installed them on the venv.
+
+		OBS: you can combine the commands 'freeze' and '--local' to have a list of the venv's installed packages.
